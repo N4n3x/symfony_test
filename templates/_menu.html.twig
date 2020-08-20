@@ -15,10 +15,8 @@
                     Produits
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/produits/marque/Apple">Apple</a>
-                    <a class="dropdown-item" href="/produits/marque/Microsoft">Microsoft</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/produits/all">Tous les produits</a>
+
+                    <a class="dropdown-item" href="{{ path('produit') }}">Tous les produits</a>
                 </div>
             </li>
 
@@ -28,11 +26,12 @@
                     Admin
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {% if is_granted("ROLE_PRODUIT") %}
+                    {% if is_granted("ROLE_ADMIN") %}
                         <a class="dropdown-item" href="{{ path('admin_produit') }}">Gestion des produits</a>
+
+                        <a class="dropdown-item" href="{{ path('marque_index') }}">Gestion des marques</a>
+                        <a class="dropdown-item" href="{{ path('stock_index') }}">Gestion des stock</a>
                     {% endif %}
-                    <a class="dropdown-item" href="{{ path('marque_index') }}">Gestion des marques</a>
-                    <a class="dropdown-item" href="{{ path('stock_index') }}">Gestion des stock</a>
                 </div>
             </li>
 

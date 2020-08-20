@@ -28,7 +28,7 @@ class ProduitController extends AbstractController
      * @Route("/admin/produit/show/{slug}", name="admin_produit_show", requirements={"slug"="[a-zA-Z0-9\-]+"})
      */
     public function show(Produit $produit){
-        return $this->render('admin/produit/show.html.twig', [
+        return $this->render('produit/show.html.twig', [
             'produit' => $produit
         ]);
     }

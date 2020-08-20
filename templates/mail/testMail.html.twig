@@ -1,3 +1,15 @@
-<h1>Titre du mail de test</h1>
+<h1>Votre Produit</h1>
 
-<p>{{ produit.titre }}</p>
+<table>
+    <th>Titre</th>
+    <th>Description</th>
+    <th>Prix</th>
+    <tr>
+        <td>{{ produit.titre }}</td>
+        <td>{{ produit.description }}</td>
+        <td>{{ produit.prixTTC }}</td>
+    </tr>
+</table>
+
+<p>Message du client ({{ message.mailClient }}):</p>
+<pre>{{ message.corps }}</pre>

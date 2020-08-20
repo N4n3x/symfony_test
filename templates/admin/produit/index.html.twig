@@ -43,7 +43,7 @@
             <tbody>
             {% for produit in produits %}
                 <tr>
-                    <td>{{ produit.titre }}</td>
+                    <td><a href="{{ path('admin_produit_show', {slug: produit.slug})}}">{{ produit.titre }}</a></td>
                     <td>
                         <a href="{{ path('admin_produit_edit', {slug: produit.slug}) }}" class="btn btn-secondary">Editer</a>
                         <form method="post" action="{{ path('admin_produit_delete', {slug: produit.slug}) }}" onsubmit="return confirm('Etes vous sur de vouloir faire ça ?')" style="display: inline-block">

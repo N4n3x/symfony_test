@@ -10,7 +10,7 @@
                         <h1>{{ produit.titre }}</h1>
                         <h2>{{ produit.stockQte }} pièces - {{ produit.poids }} Kg</h2>
                         <div class="text-primary" style="font-size: 4rem;font-weight: bold;">{{ produit.PrixTTC | number_format(0,'',' ') }} €</div>
-                        <a href="#" class="btn btn-primary">Contactez nous</a>
+                        <a href="{{ path('produit_contact', {slug: produit.slug})}}" class="btn btn-primary">Contactez nous</a>
                     </div>
                 </div>
             </div>
@@ -45,10 +45,10 @@
                     <h2>Stock</h2>
                     <table class="table table-striped">
                         {% for stock in produit.stocks %}
-                        <tr>
-                            <td>{{ stock.magasin.nom }}</td>
-                            <td>{{ stock.qte }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ stock.magasin.nom }}</td>
+                                <td>{{ stock.qte }}</td>
+                            </tr>
                         {% endfor %}
 
                     </table>

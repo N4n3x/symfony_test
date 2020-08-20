@@ -21,9 +21,9 @@ class DefaultController extends AbstractController
         ]);
     }
     /**
-     * @Route("/mail", name="mail")
+     * @Route("/mail/{slug}", name="mail")
      */
-    public function mail(ProduitRepository $produitRepository, MailTestServices $email){
+    public function mail(ProduitRepository $produitRepository, MailTestServices $email, Produit $produit){
         $produit = $produitRepository->find(120);
         // Call mailer
         $email->testSend($produit);
