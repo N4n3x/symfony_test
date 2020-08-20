@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -75,14 +77,16 @@ class Produit
     private $marque;
 
     /**
-     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="Produits", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="produit", orphanRemoval=true)
      */
-    private $stock;
+    private $stocks;
+
 
     public function __construct()
     {
         $this->Actif = false;
         $this->setDateCreated(new \DateTime());
+        $this->stocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -231,20 +235,36 @@ class Produit
         return $this;
     }
 
-    public function getStock(): ?Stock
+    /**
+     * @return Collection|Stock[]
+     */
+    public function getStocks(): Collection
     {
-        return $this->stock;
+        return $this->stocks;
     }
 
-    public function setStock(Stock $stock): self
+    public function addStock(Stock $stock): self
     {
-        $this->stock = $stock;
-
-        // set the owning side of the relation if necessary
-        if ($stock->getProduits() !== $this) {
-            $stock->setProduits($this);
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks[] = $stock;
+            $stock->setProduit($this);
         }
 
         return $this;
     }
+
+    public function removeStock(Stock $stock): self
+    {
+        if ($this->stocks->contains($stock)) {
+            $this->stocks->removeElement($stock);
+            // set the owning side to null (unless already changed)
+            if ($stock->getProduit() === $this) {
+                $stock->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

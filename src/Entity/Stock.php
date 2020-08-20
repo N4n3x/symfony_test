@@ -7,37 +7,39 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=StockRepository::class)
+ * @ORM\Table(name="stock", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="id", columns={"produit_id", "magasin_id"})
+ * })
  */
 class Stock
 {
     /**
      * @ORM\Id()
-     * @ORM\ManyToOne(targetEntity="Magasin")
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="stocks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $produit;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Magasin::class, inversedBy="stocks")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $magasin;
 
     /**
-     * @ORM\Id()
-     * @ORM\ManyToOne(targetEntity="Produit")
-     */
-    private  $produit;
-
-    /**
      * @ORM\Column(type="integer")
      */
-    private $Qte;
+    private $qte;
 
-
-
-
-    public function getQte(): ?int
+    public function getId(): ?int
     {
-        return $this->Qte;
-    }
-
-    public function getMagasin(): ?Magasin
-    {
-        return $this->magasin;
+        return $this->id;
     }
 
     public function getProduit(): ?Produit
@@ -45,23 +47,33 @@ class Stock
         return $this->produit;
     }
 
-    public function setQte(int $Qte): self
+    public function setProduit(?Produit $produit): self
     {
-        $this->Qte = $Qte;
+        $this->produit = $produit;
 
         return $this;
     }
 
-    public function setMagasin(Magasin $magasin): self
+    public function getMagasin(): ?Magasin
+    {
+        return $this->magasin;
+    }
+
+    public function setMagasin(?Magasin $magasin): self
     {
         $this->magasin = $magasin;
 
         return $this;
     }
 
-    public function setProduit(Produit $produit): self
+    public function getQte(): ?int
     {
-        $this->produit = $produit;
+        return $this->qte;
+    }
+
+    public function setQte(int $qte): self
+    {
+        $this->qte = $qte;
 
         return $this;
     }

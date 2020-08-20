@@ -29,9 +29,10 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     {% if is_granted("ROLE_PRODUIT") %}
-                        <a class="dropdown-item" href="{{ path('admin_produit') }}">Tous les produits</a>
+                        <a class="dropdown-item" href="{{ path('admin_produit') }}">Gestion des produits</a>
                     {% endif %}
-                    <a class="dropdown-item" href="{{ path('marque_index') }}">Toutes les marques</a>
+                    <a class="dropdown-item" href="{{ path('marque_index') }}">Gestion des marques</a>
+                    <a class="dropdown-item" href="{{ path('stock_index') }}">Gestion des stock</a>
                 </div>
             </li>
 
