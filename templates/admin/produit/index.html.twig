@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProduitController!{% endblock %}
+
+{% block body %}
+    {#<div class="container">
+        <h2> Nos produits en Base</h2>
+        <div class="row flex">
+            {% for produit in produits %}
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ path('admin_produit_show', {'slug': produit.slug}) }}">{{ produit.Titre }}</a>
+                            </h5>
+                            <p class="card-text">{{ produit.Description }}</p>
+                            <p class="card-text">{{ produit.Poids|number_format(1, ',', '.') }} Kgs</p>
+                            <div class="text-primary" style="font-weight: bold;font-size: 2rem">{{ produit.PrixTTC | number_format(0,'',' ')}} € TTC</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>#}
+
+    <div class="container mt-4">
+        <h1>Gérer les Produits</h1>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        <a href="{{ path('admin_produit_add') }}" class="btn btn-success ">Ajouter</a>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for produit in produits %}
+                <tr>
+                    <td>{{ produit.titre }}</td>
+                    <td>
+                        <a href="{{ path('admin_produit_edit', {slug: produit.slug}) }}" class="btn btn-secondary">Editer</a>
+                        <form method="post" action="{{ path('admin_produit_delete', {slug: produit.slug}) }}" onsubmit="return confirm('Etes vous sur de vouloir faire ça ?')" style="display: inline-block">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produit.slug) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

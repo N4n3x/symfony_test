@@ -1,0 +1,60 @@
+{% if formType == 'edit' %}
+    {{ form_start(form ,{'method' : 'post','name' : 'produitEdit'}) }}
+{% else %}
+    {{ form_start(form ,{'method' : 'post','name' : 'produitAdd'}) }}
+{% endif %}
+        {{ form_errors(form) }}
+<div class="row">
+    <div class="col-md-4">
+        {{ form_label(form.Titre) }}
+        {{ form_widget(form.Titre) }}
+
+    </div>
+    <div class="col-md-4">
+        {{ form_label(form.Description) }}
+        {{ form_widget(form.Description) }}
+
+    </div>
+    <div class="col-md-4">
+        {{ form_label(form.PrixTTC) }}
+        {{ form_widget(form.PrixTTC) }}
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        {{ form_label(form.Poids) }}
+        {{ form_widget(form.Poids) }}
+
+    </div>
+    <div class="col-md-4">
+        {{ form_label(form.Couleur) }}
+        {{ form_widget(form.Couleur) }}
+
+    </div>
+    <div class="col-md-4">
+        {{ form_label(form.StockQte) }}
+        {{ form_widget(form.StockQte) }}
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        {{ form_label(form.Actif) }}
+        {{ form_widget(form.Actif) }}
+
+    </div>
+    <div class="col-md-4">
+        {{ form_label(form.DateCreated) }}
+        {{ form_widget(form.DateCreated) }}
+
+    </div>
+    <div class="col-md-4">
+        {{ form_label(form.marque) }}
+        {{ form_widget(form.marque) }}
+
+    </div>
+</div>
+{{ form_rest(form) }}
+<button class="btn btn-primary">Valider</button>
+{{ form_end(form) }}
